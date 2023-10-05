@@ -1,0 +1,30 @@
+node
+
+{
+    properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5')), [$class: 'JobLocalConfiguration', changeReasonComment: '']])
+    def mavenHome = tool name: "maven3.9.4"
+    stage('checkout code')
+    {
+        git branch: 'development', credentialsId: '5a904f9d-ad62-4a36-9cc5-d97101c77159', url: 'https://github.com/vvs-devops/maven-web-application1.git'
+    }
+    stage('build')
+    {
+        sh "${mavenHome}/bin/mvn clean package"
+    }
+/*
+    stage('ExecuteSonarReport')
+    {
+       sh "${mavenHome}/bin/mvn sonar:sonar" 
+    }
+    stage('UploadArtifactoryToNexus')
+    {
+        sh "${mavenHome}/bin/mvn deploy"
+    }
+    stage('DeployApplicatonToTomcat')
+    {
+        sshagent(['7150ef69-9685-44f1-954d-492fd94d81d9']) {
+    sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@172.31.83.234:/opt/apache-tomcat-9.0.80/webapps"
+    }
+    }
+*/
+}
