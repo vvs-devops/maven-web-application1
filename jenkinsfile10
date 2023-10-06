@@ -54,3 +54,4 @@ throw e
 finally{
 sendSlackNotifications(currentBuild.result)
 }
+}
