@@ -18,11 +18,17 @@ def sendSlackNotifications(String buildStatus = 'STARTED') {
     color = 'RED'
     colorCode = '#FF0000'
   }
+
+  // Send notifications
+  slackSend (color: colorCode, message: summary)
+}
+
 node
 
 {
 try{
     properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5')), [$class: 'JobLocalConfiguration', changeReasonComment: '']])
+	
     def mavenHome = tool name: "maven3.9.4"
     stage('checkout code')
     {
@@ -32,7 +38,6 @@ try{
     {
         sh "${mavenHome}/bin/mvn clean package"
     }
-
     stage('ExecuteSonarReport')
     {
        sh "${mavenHome}/bin/mvn sonar:sonar" 
@@ -45,13 +50,16 @@ try{
     {
         sshagent(['7150ef69-9685-44f1-954d-492fd94d81d9']) {
     sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@172.31.83.234:/opt/apache-tomcat-9.0.80/webapps"
+}
     }
-    
-}catch(e){
-currentBuild.result = "FAILED"
-throw e
-}
-finally{
-sendSlackNotifications(currentBuild.result)
-}
-}
+	}catch(e){
+	currentBuild.result="FAILED"
+	throw e
+	}
+	finally{
+	sendSlackNotifications(currentBuild.result)
+	}
+	
+
+}//node closing
+
