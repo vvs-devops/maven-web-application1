@@ -21,7 +21,7 @@
 		<spring.version>5.1.2.RELEASE</spring.version>
 		<junit.version>4.11</junit.version>
 		<log4j.version>1.2.17</log4j.version>
-		<sonar.host.url>http://3.90.80.233:9000/</sonar.host.url>
+		<sonar.host.url>http://34.224.16.20:9000/</sonar.host.url>
 		<sonar.login>squ_4e5c96b5bef1ba2f0091c81679cf21f3536237c2</sonar.login>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -97,13 +97,13 @@
 	    <repository>
 	      <id>nexus</id>
 	      <name>venkat Technologies Releases Nexus Repository</name>
-	      <url>http://34.224.63.55:8081/repository/STS-release/</url>
+	      <url>http://54.84.40.147:8081/repository/STS-release/</url>
 	    </repository>
 	    
 	    <snapshotRepository>
 	      <id>nexus</id>
 	      <name>venkat Technologies Snapshot Nexus Repository </name>
-	      <url>http://34.224.63.55:8081/repository/STS-snapshot/</url>
+	      <url>http://54.84.40.147:8081/repository/STS-snapshot/</url>
 	    </snapshotRepository>
 	    
 	</distributionManagement>
